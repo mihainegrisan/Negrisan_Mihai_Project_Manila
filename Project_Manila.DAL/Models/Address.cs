@@ -16,6 +16,12 @@ namespace Project_Manila.DAL.Models
         public string StreetAddress { get; set; }
 
         [Required]
+        [StringLength(200, ErrorMessage = "{0} length cannot exceed {1} characters")]
+        [Column(TypeName = "nvarchar(200)")]
+        [DisplayName("Street Name")]
+        public string StreetName { get; set; }
+        
+        [Required]
         [StringLength(90, ErrorMessage = "{0} length cannot exceed {1} characters")]
         [Column(TypeName = "nvarchar(90)")]
         public string City { get; set; }

@@ -29,7 +29,6 @@ namespace Project_Manila.DAL.Models
         [Range(0, 150, ErrorMessage = "The {0} should be between {1} and {2} years")]
         public int Age { get; set; }
 
-
         [Required]
         [StringLength(350, ErrorMessage = "{0} length cannot exceed {1} characters")]
         [Column(TypeName = "nvarchar(350)")]
