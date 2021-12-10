@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -42,5 +43,7 @@ namespace Project_Manila.DAL.Models
         [DataType(DataType.PostalCode)]
         [DisplayName("Postal Code")]
         public string PostalCode { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

@@ -21,12 +21,9 @@ namespace Project_Manila.DAL.Models
         [DisplayName("Purchase Price")]
         public decimal PurchasePrice { get; set; }
 
-        public int OrderId { get; set; }
 
         [Required]
         public Order Order { get; set; }
-
-        public int ProductId { get; set; }
 
         [Required]
         public Product Product { get; set; }

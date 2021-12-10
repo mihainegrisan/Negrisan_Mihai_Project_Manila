@@ -30,7 +30,7 @@ namespace Project_Manila.DAL.Seed
 
                 if (address is null)
                 {
-                    continue;
+                    return;
                 }
 
                 var firstName = "";
@@ -43,7 +43,6 @@ namespace Project_Manila.DAL.Seed
                     .RuleFor(c => c.EmailAddress, f => f.Internet.Email(firstName, lastName))
                     .RuleFor(c => c.PhoneNumber, f => f.Phone.PhoneNumber("##########"))
                     .RuleFor(c => c.EntryDate, f => f.Date.Between(DateTime.Parse("2017-01-01"), DateTime.Now))
-                    .RuleFor(c => c.AddressId, f => address.AddressId)
                     .RuleFor(c => c.Address, f => address);
 
                 context.Customers.Add(customer);

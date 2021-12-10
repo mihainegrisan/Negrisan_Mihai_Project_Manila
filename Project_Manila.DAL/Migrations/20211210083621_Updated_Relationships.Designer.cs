@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_Manila.DAL;
 
 namespace Project_Manila.DAL.Migrations
 {
     [DbContext(typeof(ProjectManilaDBContext))]
-    partial class ProjectManilaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211210083621_Updated_Relationships")]
+    partial class Updated_Relationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

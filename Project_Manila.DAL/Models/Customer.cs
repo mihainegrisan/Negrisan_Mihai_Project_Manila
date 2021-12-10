@@ -47,10 +47,7 @@ namespace Project_Manila.DAL.Models
         [DisplayName("Entry Date")]
         public DateTime EntryDate { get; set; }
 
-
-        public int? AddressId { get; set; }
         public Address Address { get; set; }
-
         public ICollection<Order> Orders { get; set; }
         
     }

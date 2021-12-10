@@ -30,15 +30,13 @@ namespace Project_Manila.DAL.Seed
 
                 if (order is null || product is null)
                 {
-                    continue;
+                    return;
                 }
 
                 var orderItem = new Faker<OrderItem>()
                     .RuleFor(o => o.Quantity, f => f.Random.Number(1, 100))
                     .RuleFor(o => o.PurchasePrice, f => f.Random.Decimal(5M, 1500M))
-                    .RuleFor(o => o.OrderId, f => order.OrderId)
                     .RuleFor(o => o.Order, f => order)
-                    .RuleFor(o => o.ProductId, f => product.ProductId)
                     .RuleFor(o => o.Product, f => product);
 
                 context.OrderItems.Add(orderItem);

@@ -28,16 +28,14 @@ namespace Project_Manila.DAL.Seed
             {
                 var customer = context.Customers.FirstOrDefault(c => c.CustomerId == i);
 
-                if (customer?.AddressId is null)
+                if (customer?.Address is null)
                 {
-                    continue;
+                    return;
                 }
 
                 var order = new Faker<Order>()
                     .RuleFor(o => o.OrderDate, f => f.Date.Between(customer.EntryDate, DateTime.Now))
-                    .RuleFor(o => o.CustomerId, f => customer.CustomerId)
                     .RuleFor(o => o.Customer, f => customer)
-                    .RuleFor(o => o.ShippingAddressId, f => customer.AddressId)
                     .RuleFor(o => o.ShippingAddress, f => customer.Address);
 
                 context.Orders.Add(order);
