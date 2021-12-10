@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_Manila.DAL;
 
 namespace Project_Manila.DAL.Migrations
 {
     [DbContext(typeof(ProjectManilaDBContext))]
-    partial class ProjectManilaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211209120423_Added_StreetNameField_To_AddressModel")]
+    partial class Added_StreetNameField_To_AddressModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,14 +119,14 @@ namespace Project_Manila.DAL.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ShippingAddressAddressId")
+                    b.Property<int>("ShippingAddressId")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("ShippingAddressAddressId");
+                    b.HasIndex("ShippingAddressId");
 
                     b.ToTable("Order");
                 });
@@ -200,8 +202,8 @@ namespace Project_Manila.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Project_Manila.DAL.Models.Address", "ShippingAddress")
-                        .WithMany("Orders")
-                        .HasForeignKey("ShippingAddressAddressId")
+                        .WithMany()
+                        .HasForeignKey("ShippingAddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -219,7 +221,7 @@ namespace Project_Manila.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Project_Manila.DAL.Models.Product", "Product")
-                        .WithMany("OrderItems")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -229,22 +231,12 @@ namespace Project_Manila.DAL.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Project_Manila.DAL.Models.Address", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
             modelBuilder.Entity("Project_Manila.DAL.Models.Customer", b =>
                 {
                     b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Project_Manila.DAL.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("Project_Manila.DAL.Models.Product", b =>
                 {
                     b.Navigation("OrderItems");
                 });

@@ -29,5 +29,7 @@ namespace Project_Manila.DAL.Models
         [Column(TypeName = "decimal(18, 2)")]
         [DataType(DataType.Currency)]
         public decimal CurrentPrice { get; set; }
+
+        public ICollection<OrderItem> OrderItems { get; set; }
     }
 }

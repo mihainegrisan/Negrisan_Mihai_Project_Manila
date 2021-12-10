@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,6 +16,12 @@ namespace Project_Manila.DAL.Models
         [DisplayName("Street Address")]
         public string StreetAddress { get; set; }
 
+        [Required]
+        [StringLength(200, ErrorMessage = "{0} length cannot exceed {1} characters")]
+        [Column(TypeName = "nvarchar(200)")]
+        [DisplayName("Street Name")]
+        public string StreetName { get; set; }
+        
         [Required]
         [StringLength(90, ErrorMessage = "{0} length cannot exceed {1} characters")]
         [Column(TypeName = "nvarchar(90)")]
@@ -36,5 +43,7 @@ namespace Project_Manila.DAL.Models
         [DataType(DataType.PostalCode)]
         [DisplayName("Postal Code")]
         public string PostalCode { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
     }
 }
