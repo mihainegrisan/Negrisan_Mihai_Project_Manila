@@ -1,8 +1,10 @@
-﻿@model IEnumerable<Project_Manila.DAL.Models.Customer>
+﻿@model Project_Manila.Web.Utility.PaginatedList<Project_Manila.DAL.Models.Customer>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
 <h1>Index</h1>
@@ -10,28 +12,39 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Last Name: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntryDate)
-            </th>
-            <th></th>
+          <th>
+              <a asp-action="Index" asp-route-sortOrder="@ViewData["FirstNameSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">First Name</a>
+          </th>
+          <th>
+              <a asp-action="Index" asp-route-sortOrder="@ViewData["LastNameSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
+          </th>
+          <th>
+              Age
+          </th>
+          <th>
+              Email
+          </th>
+          <th>
+              Phone
+          </th>
+          <th>
+              Entry Date
+          </th>
+          <th></th>
         </tr>
     </thead>
     <tbody>
@@ -64,3 +77,5 @@
 }
     </tbody>
 </table>
+
+<partial name="_Pagination" />
