@@ -18,7 +18,7 @@ namespace Project_Manila.DAL.Seed
             context.Database.EnsureCreated();
             context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('Product', RESEED, 0)");
 
-            if (context.Products.Count() >= 20)
+            if (context.Products.Count() >= count)
             {
                 return;
             }

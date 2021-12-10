@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_Manila.Web", "Project_Manila.Web\Project_Manila.Web.csproj", "{BC9F14F9-CC03-4C85-992F-D2990E8EA105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project_Manila.Web", "Project_Manila.Web\Project_Manila.Web.csproj", "{BC9F14F9-CC03-4C85-992F-D2990E8EA105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_Manila.BL", "Project_Manila.BL\Project_Manila.BL.csproj", "{44F34BCA-611B-4690-B0DC-351AD9638C97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project_Manila.DAL", "Project_Manila.DAL\Project_Manila.DAL.csproj", "{8F9139D4-8789-4BCC-9921-2D7E62BFC64E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_Manila.DAL", "Project_Manila.DAL\Project_Manila.DAL.csproj", "{8F9139D4-8789-4BCC-9921-2D7E62BFC64E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project_Manila.API", "Project_Manila.API\Project_Manila.API.csproj", "{AC112EFF-CF17-4531-9D24-FA15B3B27321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_Manila.API", "Project_Manila.API\Project_Manila.API.csproj", "{AC112EFF-CF17-4531-9D24-FA15B3B27321}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_Manila.Tests", "Project_Manila.Tests\Project_Manila.Tests.csproj", "{03B0AD04-8EE1-4CDE-83EA-77C255541051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project_Manila.Tests", "Project_Manila.Tests\Project_Manila.Tests.csproj", "{03B0AD04-8EE1-4CDE-83EA-77C255541051}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{BC9F14F9-CC03-4C85-992F-D2990E8EA105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC9F14F9-CC03-4C85-992F-D2990E8EA105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC9F14F9-CC03-4C85-992F-D2990E8EA105}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44F34BCA-611B-4690-B0DC-351AD9638C97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44F34BCA-611B-4690-B0DC-351AD9638C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44F34BCA-611B-4690-B0DC-351AD9638C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44F34BCA-611B-4690-B0DC-351AD9638C97}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F9139D4-8789-4BCC-9921-2D7E62BFC64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F9139D4-8789-4BCC-9921-2D7E62BFC64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F9139D4-8789-4BCC-9921-2D7E62BFC64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
