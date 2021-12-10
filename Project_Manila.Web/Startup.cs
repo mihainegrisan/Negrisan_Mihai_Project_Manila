@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Project_Manila.DAL;
 using Microsoft.AspNetCore.Identity;
+using Project_Manila.DAL.Configuration;
 
 namespace Project_Manila.Web
 {
@@ -57,6 +58,8 @@ namespace Project_Manila.Web
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

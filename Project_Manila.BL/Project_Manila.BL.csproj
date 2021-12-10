@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Project_Manila.DAL\Project_Manila.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
