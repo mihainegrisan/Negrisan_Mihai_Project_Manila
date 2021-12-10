@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project_Manila.DAL;
 using Project_Manila.DAL.Models;
+using Project_Manila.Web.Utility;
 
 namespace Project_Manila.Web.Controllers
 {
@@ -20,26 +21,58 @@ namespace Project_Manila.Web.Controllers
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
-            return View(await _context.Customers.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["FirstNameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "FirstName_desc" : "";
+            ViewData["LastNameSortParam"] = sortOrder == "LastName_asc" ? "LastName_desc" : "LastName_asc";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            var customers = _context.Customers.Select(c => c);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(s => s.LastName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "FirstName_desc":
+                    customers = customers.OrderByDescending(b => b.FirstName);
+                    break;
+                case "LastName_asc":
+                    customers = customers.OrderBy(b => b.LastName);
+                    break;
+                case "LastName_desc":
+                    customers = customers.OrderByDescending(b => b.LastName);
+                    break;
+                default:
+                    customers = customers.OrderBy(b => b.FirstName);
+                    break;
+            }
+
+            const int pageSize = 10;
+
+            return View(await PaginatedList<Customer>.CreateAsync(customers.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customers.FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
+            return await GetCustomerView(id);
         }
 
         // GET: Customers/Create
