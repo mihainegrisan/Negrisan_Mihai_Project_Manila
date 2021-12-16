@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace Project_Manila.Web.Utility
+namespace Project_Manila.Common.Utility
 {
     public class PaginatedList<T> : List<T>
     {

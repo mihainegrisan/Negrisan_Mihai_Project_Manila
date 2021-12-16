@@ -28,29 +28,33 @@ namespace Project_Manila.Web
                     var context = services.GetRequiredService<ProjectManilaDBContext>();
                     context.Database.Migrate();
 
-                    if (context.Addresses.Count() < 20)
+                    const int customersNumber = 20;
+                    const int ordersAndProductsNumber = 100;
+                    const int orderItemsNumber = 500;
+
+                    if (context.Addresses.Count() < customersNumber)
                     {
-                        SeedAddress.Seed(services, 20);
+                        SeedAddress.Seed(services, customersNumber);
                     }
 
-                    if (context.Customers.Count() < 20)
+                    if (context.Customers.Count() < customersNumber)
                     {
-                        SeedCustomer.Seed(services, 20);
+                        SeedCustomer.Seed(services, customersNumber);
                     }
 
-                    if (context.Products.Count() < 20)
+                    if (context.Products.Count() < ordersAndProductsNumber)
                     {
-                        SeedProduct.Seed(services, 20);
+                        SeedProduct.Seed(services, ordersAndProductsNumber);
                     }
 
-                    if (context.Orders.Count() < 20)
+                    if (context.Orders.Count() < ordersAndProductsNumber)
                     {
-                        SeedOrder.Seed(services, 20);
+                        SeedOrder.Seed(services, ordersAndProductsNumber, customersNumber);
                     }
 
-                    if (context.OrderItems.Count() < 20)
+                    if (context.OrderItems.Count() < orderItemsNumber)
                     {
-                        SeedOrderItem.Seed(services, 20);
+                        SeedOrderItem.Seed(services, orderItemsNumber, ordersAndProductsNumber);
                     }
                 }
                 catch (Exception ex)

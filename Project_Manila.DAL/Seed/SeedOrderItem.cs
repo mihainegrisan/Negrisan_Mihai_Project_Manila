@@ -12,7 +12,7 @@ namespace Project_Manila.DAL.Seed
 {
     public class SeedOrderItem
     {
-        public static void Seed(IServiceProvider serviceProvider, int count)
+        public static void Seed(IServiceProvider serviceProvider, int count, int ordersAndProductsNumber)
         {
             var context = serviceProvider.GetRequiredService<ProjectManilaDBContext>();
             context.Database.EnsureCreated();
@@ -23,10 +23,14 @@ namespace Project_Manila.DAL.Seed
                 return;
             }
 
-            for (var i = 1; i <= count; ++i)
+            var randomGenerator = new Random();
+
+            for (var i = 0; i < count; ++i)
             {
-                var order = context.Orders.FirstOrDefault(o => o.OrderId == i);
-                var product = context.Products.FirstOrDefault(p => p.ProductId == i);
+                var id = i % ordersAndProductsNumber + 1;
+                var randomProductId = randomGenerator.Next(1, ordersAndProductsNumber + 1);
+                var order = context.Orders.FirstOrDefault(o => o.OrderId == id);
+                var product = context.Products.FirstOrDefault(p => p.ProductId == randomProductId);
 
                 if (order is null || product is null)
                 {

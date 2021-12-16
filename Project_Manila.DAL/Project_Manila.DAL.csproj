@@ -14,4 +14,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Project_Manila.Common\Project_Manila.Common.csproj" />
+  </ItemGroup>
+
 </Project>
