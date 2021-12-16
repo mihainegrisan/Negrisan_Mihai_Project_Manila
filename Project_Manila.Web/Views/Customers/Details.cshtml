@@ -1,55 +1,119 @@
-﻿@model Project_Manila.DAL.Models.Customer
+﻿@model Project_Manila.DAL.ViewModels.CustomerIndexData
 
 @{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewData["Title"] = "Details";
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>Customer</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmailAddress)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EntryDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EntryDate)
-        </dd>
-    </dl>
+  <h4>Customer</h4>
+  <hr />
+  <dl class="row">
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Customer.FirstName)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.Customer.FirstName)
+    </dd>
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Customer.LastName)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.Customer.LastName)
+    </dd>
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Customer.Age)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.Customer.Age)
+    </dd>
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Customer.EmailAddress)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.Customer.EmailAddress)
+    </dd>
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Customer.PhoneNumber)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.Customer.PhoneNumber)
+    </dd>
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Customer.EntryDate)
+    </dt>
+    <dd class = "col-sm-10">
+      @Html.DisplayFor(model => model.Customer.EntryDate)
+    </dd>
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.Customer.Address)
+    </dt>
+    <dd class="col-sm-10">
+      @($"{Model.Customer.Address.StreetName} {Model.Customer.Address.StreetAddress}, {Model.Customer.Address.City}, {Model.Customer.Address.State}, {Model.Customer.Address.Country}, {Model.Customer.Address.PostalCode}")
+    </dd>
+  </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.CustomerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+  <a asp-action="Edit" asp-route-id="@Model.Customer.CustomerId">Edit</a> |
+  <a asp-action="Index">Back to List</a>
 </div>
+
+<br/>
+
+@if (Model.Orders != null)
+{
+  <h3>Orders for @($"{Model.Customer.FirstName} {Model.Customer.LastName}")</h3>
+  <table class="table">
+    <tr>
+      <th></th>
+      <th>Order Date</th>
+    </tr>
+    @foreach (var item in Model.Orders)
+    {
+      string selectedRow = "";
+      if (item.OrderId == (int?) ViewData["OrderID"])
+      {
+        selectedRow = "success";
+      }
+      <tr class="@selectedRow">
+        <td>
+          @Html.ActionLink("Select", "Details", new {orderID = item.OrderId})
+        </td>
+        <td>
+          @item.OrderDate
+        </td>
+      </tr>
+    }
+  </table>
+}
+        
+@if (Model.OrderItems != null)
+{
+  <h3>
+    Order Items associated with the selected Order
+  </h3>
+
+  <table class="table">
+    <tr>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Purchase Price</th>
+    </tr>
+    @foreach (var item in Model.OrderItems)
+    {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Product.ProductName)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.PurchasePrice)
+        </td>
+      </tr>
+    }
+  </table>
+}

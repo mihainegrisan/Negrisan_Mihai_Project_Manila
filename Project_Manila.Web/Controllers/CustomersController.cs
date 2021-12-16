@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Project_Manila.Common.Utility;
 using Project_Manila.DAL;
 using Project_Manila.DAL.Models;
-using Project_Manila.Web.Utility;
+using Project_Manila.DAL.ViewModels;
 
 namespace Project_Manila.Web.Controllers
 {
@@ -27,6 +30,7 @@ namespace Project_Manila.Web.Controllers
             string searchString,
             int? pageNumber)
         {
+
             ViewData["CurrentSort"] = sortOrder;
             ViewData["FirstNameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "FirstName_desc" : "";
             ViewData["LastNameSortParam"] = sortOrder == "LastName_asc" ? "LastName_desc" : "LastName_asc";
@@ -64,15 +68,38 @@ namespace Project_Manila.Web.Controllers
                     break;
             }
 
-            const int pageSize = 10;
+            const int pageSize = 5;
 
             return View(await PaginatedList<Customer>.CreateAsync(customers.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Customers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int? orderId)
         {
-            return await GetCustomerView(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new CustomerIndexData();
+            viewModel.Customer = await _context.Customers
+                .Include(c => c.Address)
+                .Include(c => c.Orders)
+                .ThenInclude(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.CustomerId == id);
+
+            ViewData["CustomerID"] = id.Value;
+            viewModel.Orders = viewModel.Customer.Orders;
+            
+            if (orderId != null)
+            {
+                ViewData["OrderID"] = orderId.Value;
+                viewModel.OrderItems = viewModel.Orders.Single(o => o.OrderId == orderId).OrderItems;
+            }
+
+            return View(viewModel);
         }
 
         // GET: Customers/Create
@@ -101,7 +128,19 @@ namespace Project_Manila.Web.Controllers
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            return await GetCustomerView(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.Customers.FindAsync(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
         }
 
         // POST: Customers/Edit/5
@@ -142,7 +181,19 @@ namespace Project_Manila.Web.Controllers
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            return await GetCustomerView(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.Customers.FindAsync(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
         }
 
         // POST: Customers/Delete/5
@@ -159,23 +210,6 @@ namespace Project_Manila.Web.Controllers
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.CustomerId == id);
-        }
-
-        private async Task<IActionResult> GetCustomerView(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customers.FindAsync(id);
-
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
         }
     }
 }

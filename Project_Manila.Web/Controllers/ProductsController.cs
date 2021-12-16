@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Project_Manila.Common.Utility;
 using Project_Manila.DAL;
 using Project_Manila.DAL.Models;
-using Project_Manila.Web.Utility;
 
 namespace Project_Manila.Web.Controllers
 {

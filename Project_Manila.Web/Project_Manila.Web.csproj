@@ -23,10 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Project_Manila.Common\Project_Manila.Common.csproj" />
     <ProjectReference Include="..\Project_Manila.DAL\Project_Manila.DAL.csproj" />
   </ItemGroup>
 

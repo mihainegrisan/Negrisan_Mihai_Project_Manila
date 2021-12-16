@@ -12,7 +12,7 @@ namespace Project_Manila.DAL.Seed
 {
     public class SeedOrder
     {
-        public static void Seed(IServiceProvider serviceProvider, int count)
+        public static void Seed(IServiceProvider serviceProvider, int count, int numberOfCustomersSeeded)
         {
             var context = serviceProvider.GetRequiredService<ProjectManilaDBContext>();
             context.Database.EnsureCreated();
@@ -24,9 +24,10 @@ namespace Project_Manila.DAL.Seed
             }
             
 
-            for (var i = 1; i <= count; ++i)
+            for (var i = 0; i < count; ++i)
             {
-                var customer = context.Customers.FirstOrDefault(c => c.CustomerId == i);
+                var id = i % numberOfCustomersSeeded + 1;
+                var customer = context.Customers.FirstOrDefault(c => c.CustomerId == id);
 
                 if (customer?.Address is null)
                 {
