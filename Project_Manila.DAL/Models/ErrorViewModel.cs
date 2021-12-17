@@ -1,6 +1,4 @@
-using System;
-
-namespace Project_Manila.Web.Models
+namespace Project_Manila.DAL.Models
 {
     public class ErrorViewModel
     {

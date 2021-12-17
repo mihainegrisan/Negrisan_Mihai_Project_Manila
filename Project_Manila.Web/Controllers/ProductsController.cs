@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Project_Manila.DAL.Models;
 
 namespace Project_Manila.Web.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class ProductsController : Controller
     {
         private readonly ProjectManilaDBContext _context;
@@ -20,6 +22,7 @@ namespace Project_Manila.Web.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index(
             string sortOrder,
             string currentFilter,
@@ -68,6 +71,7 @@ namespace Project_Manila.Web.Controllers
             return View(await PaginatedList<Product>.CreateAsync(products.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             return await GetProductView(id);
