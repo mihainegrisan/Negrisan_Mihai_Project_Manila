@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Project_Manila.Common.Utility;
 using Project_Manila.DAL;
 using Project_Manila.DAL.Models;
@@ -43,8 +45,9 @@ namespace Project_Manila.Web.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
-            var products = _context.Products.Select(p => p);
-
+            
+            var products = _context.Products.Select(p => p).AsQueryable();
+            
             if (!string.IsNullOrEmpty(searchString))
             {
                 products = products.Where(s => s.ProductName.Contains(searchString));
