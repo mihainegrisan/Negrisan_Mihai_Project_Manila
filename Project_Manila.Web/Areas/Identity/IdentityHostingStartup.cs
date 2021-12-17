@@ -19,7 +19,9 @@ namespace Project_Manila.Web.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("IdentityContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddDefaultTokenProviders()
+                    .AddDefaultUI()
                     .AddEntityFrameworkStores<IdentityContext>();
             });
         }
