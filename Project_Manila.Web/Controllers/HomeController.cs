@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Project_Manila.Web.Models;
+using Project_Manila.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,11 +19,6 @@ namespace Project_Manila.Web.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }
