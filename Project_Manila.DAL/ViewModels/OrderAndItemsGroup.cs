@@ -12,5 +12,6 @@ namespace Project_Manila.DAL.ViewModels
         [DataType(DataType.Date)]
         public DateTime? OrderDate { get; set; }
         public int ItemsPerOrder { get; set; }
+        public decimal TotalAmountOrdered { get; set; }
     }
 }

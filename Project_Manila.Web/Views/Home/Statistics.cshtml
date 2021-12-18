@@ -3,15 +3,19 @@
 @{
   ViewData["Title"] = "Ordered Books Statistics";
 }
+
 <h2>Ordered Books Statistics</h2>
 
-<table>
+<table class="table">
   <tr>
     <th>
       Order Date
     </th>
     <th>
-      Ordered Books
+      Nr. Products Ordered
+    </th>
+    <th>
+      Total Amount (USD)
     </th>
   </tr>
   @foreach (var item in Model)
@@ -22,6 +26,9 @@
       </td>
       <td>
         @item.ItemsPerOrder
+      </td>
+      <td>
+        @($"{item.TotalAmountOrdered:c}")
       </td>
     </tr>
   }

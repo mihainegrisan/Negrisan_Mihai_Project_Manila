@@ -32,11 +32,12 @@ namespace Project_Manila.Web.Controllers
         {
             IQueryable<OrderAndItemsGroup> data = _db.Orders
                 .Include(o => o.OrderItems)
-                .OrderBy(o => o.OrderDate)
+                .OrderByDescending(o => o.OrderDate)
                 .Select(o => new OrderAndItemsGroup()
                 {
                     OrderDate = o.OrderDate,
-                    ItemsPerOrder = o.OrderItems.Count
+                    ItemsPerOrder = o.OrderItems.Sum(oi => oi.Quantity),
+                    TotalAmountOrdered = o.OrderItems.Sum(oi => oi.PurchasePrice * oi.Quantity)
                 });
 
             return View(await data.AsNoTracking().ToListAsync());
