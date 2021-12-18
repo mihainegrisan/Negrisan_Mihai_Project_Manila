@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Project_Manila.DAL.ViewModels.OrderAndItemsGroup>
+
+@{
+  ViewData["Title"] = "Ordered Books Statistics";
+}
+
+<h2>Ordered Books Statistics</h2>
+
+<table class="table">
+  <tr>
+    <th>
+      Order Date
+    </th>
+    <th>
+      Nr. Products Ordered
+    </th>
+    <th>
+      Total Amount (USD)
+    </th>
+  </tr>
+  @foreach (var item in Model)
+  {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.OrderDate)
+      </td>
+      <td>
+        @item.ItemsPerOrder
+      </td>
+      <td>
+        @($"{item.TotalAmountOrdered:c}")
+      </td>
+    </tr>
+  }
+</table>
